@@ -1,9 +1,10 @@
+#include <cstddef>
 #include <vector>
 void merge(std::vector<int> &nums, int l, int m, int r) {
   std::vector<int> left(nums.begin() + l, nums.begin() + m + 1),
       right(nums.begin() + m + 1, nums.begin() + r + 1);
 
-  int i = 0, j = 0, k = l;
+  size_t i = 0, j = 0, k = l;
   while (i < left.size() && j < right.size()) {
     nums[k++] = (left[i] <= right[j] ? left[i++] : right[j++]);
   }
