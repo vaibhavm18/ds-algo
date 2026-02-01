@@ -10,6 +10,7 @@ extern void insertion_sort(vector<int> &);
 extern void selection_sort(vector<int> &);
 extern void merge_sort(vector<int> &, int, int);
 extern void quick_sort(vector<int> &, int, int);
+extern int binary_search(vector<int> &, int);
 
 void print(const vector<int> &v) {
   for (int x : v)
@@ -60,6 +61,8 @@ int main() {
     quick_sort(v, 0, v.size() - 1);
     cout << "\nQuick Sort:\n";
     print(v);
+    int index = binary_search(v, 424);
+    cout << "index:" << index;
   }
 
   return 0;
