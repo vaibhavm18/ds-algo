@@ -19,12 +19,21 @@ build-each:
 # Usage: make run f=sort/main   OR   make run f=sort/main.cpp
 run:
 ifeq ($(f),)
-	@echo "Error: Please specify file: make run f=sort/main"
+	@echo "Error: Please specify file or folder"
 	@exit 1
 endif
-	@mkdir -p $(dir $(TARGET))
-	$(CXX) $(CXXFLAGS) $(FILE).cpp -o $(TARGET)
-	./$(TARGET)
+	@mkdir -p $(BINDIR)
+
+	@if echo "$(f)" | grep -q '\*'; then \
+		echo "Running folder build: $(f)"; \
+		FILES=$$(ls $(f).cpp 2>/dev/null); \
+		$(CXX) $(CXXFLAGS) $$FILES -o $(BINDIR)/run_all && \
+		./$(BINDIR)/run_all ; \
+	else \
+		echo "Running single file: $(f).cpp"; \
+		$(CXX) $(CXXFLAGS) $(f).cpp -o $(TARGET) && \
+		./$(TARGET) ; \
+	fi
 
 clean:
 	rm -rf $(BINDIR)
